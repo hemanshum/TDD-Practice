@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
+import { replaceCameWithSpaces } from "./App";
 
 test("button has correct initial color", () => {
   render(<App />);
@@ -70,4 +71,17 @@ test("Disable button has gray background and revert to blue", () => {
   //re-enable button
   fireEvent.click(checkbox);
   expect(colorButton).toHaveStyle("background-color: blue");
+});
+
+//Unit Testing Functions
+describe("spaces before camel-case capital letters", () => {
+  test("Works for no inner capital letters", () => {
+    expect(replaceCameWithSpaces("Red")).toBe("Red");
+  });
+  test("Work for one inner capital letter", () => {
+    expect(replaceCameWithSpaces("MidnightBlue")).toBe("Midnight Blue");
+  });
+  test("Works for multiple inner capital letters", () => {
+    expect(replaceCameWithSpaces("MediumVioletRed")).toBe("Medium Violet Red");
+  });
 });
